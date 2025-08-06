@@ -54,17 +54,19 @@ Follow these steps to run the project locally:
 ---
 
 ## File Structure
-- basti-ki-pathshala/
-    - index.html         
-    - volunteer.html      
-    - aboutus.jpg       
-    - herobackground.jpg  
-    - customer01.jpg      
-    - customer02.jpg     
-    - README.md           
-
-
----
+```
+basti-ki-pathshala/
+├── index2.html
+├── volunteer.html
+├── aboutus.jpg
+├── herobackground.jpg
+├── customer01.jpg
+├── customer02.jpg
+├── css/
+│   └── style.css
+├── README.md
+   
+```
 
 ## Usage
 
