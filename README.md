@@ -54,15 +54,15 @@ Follow these steps to run the project locally:
 ---
 
 ## File Structure
-basti-ki-pathshala/
-│
-├── index.html # Main homepage with programs, testimonials, dark mode toggle
-├── volunteer.html # Volunteer registration form page
-├── aboutus.jpg # Image for About Us section
-├── herobackground.jpg # Hero/banner background image
-├── customer01.jpg # Testimonial image 1
-├── customer02.jpg # Testimonial image 2
-├── README.md # This README file
+- basti-ki-pathshala/
+    - index.html         
+    - volunteer.html      
+    - aboutus.jpg       
+    - herobackground.jpg  
+    - customer01.jpg      
+    - customer02.jpg     
+    - README.md           
+
 
 ---
 
