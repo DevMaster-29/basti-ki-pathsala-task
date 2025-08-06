@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Basti Ki Pathshala Foundation</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <!-- Font Awesome for quote & social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Roboto', sans-serif; }
+    h1, h2, h3, .navbar-brand { font-family: 'Poppins', sans-serif; }
+    /* Navbar hover effect */
+    .navbar-nav .nav-link {
+      position: relative;
+      transition: color 0.3s;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: #f39c12;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: url('herobackground.jpg') center/cover no-repeat;
+      height: 80vh;
+      
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadein 1.2s;
+    }
+    
+    .hero .overlay {
+      background-color: rgba(0,0,0,0.5);
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      z-index: 1;
+    }
+    .hero .container {
+      position: relative; z-index: 2;
+      animation: floatup 1.3s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes floatup {
+      0% { opacity: 0; transform: translateY(40px) scale(0.98);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    /* Buttons 3D & modern transitions */
+    .btn-warning, .btn-outline-primary, .btn-secondary, .btn-lg, .btn {
+      transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(243,156,18,0.12);
+      border-radius: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .btn-warning:hover {
+      background: #ffbe3b;
+      box-shadow: 0px 6px 24px rgba(255, 190, 59, 0.3);
+      transform: translateY(-2px) scale(1.04);
+    }
+    .btn-warning:active {
+      transform: scale(0.97) translateY(1px);
+      background: #e67e22;
+    }
+    /* Card 3D hover */
+    .card {
+      transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.09);
+      perspective: 1000px;
+      background: #fff;
+      will-change: transform;
+    }
+    .card:hover {
+      transform: translateY(-12px) scale(1.03) rotate3d(0.8,0.2,0,3deg);
+      box-shadow: 0px 12px 36px rgba(243, 156, 18, 0.14),0 1.5px 3px rgba(0,0,0,0.08);
+      z-index: 2;
+    }
+    /* Section on-scroll animation */
+    [data-animate] { opacity: 0; transform: translateY(30px); transition: opacity 0.9s, transform 0.7s; }
+    [data-animate].animated {opacity: 1; transform: none;}
+    [data-animate] {
+  opacity: 1;
+  transform: none;
+}
+
+    /* Section: About, Team, etc. */
+    .img-fluid.rounded, .team-img {
+      transition: transform 0.35s cubic-bezier(.29,2.03,.39,.74), box-shadow 0.3s;
+      will-change: transform;
+      max-width: 80%; height: auto;
+    }
+    .img-fluid.rounded:hover, .team-img:hover {
+      transform: scale(1.07) rotateZ(-2deg);
+      box-shadow: 0 8px 30px rgba(25, 25, 51, 0.10);
+    }
+    /* Counters */
+    .counter {
+      font-size: 2.6rem;
+      font-weight: 700;
+      transition: color 0.3s, text-shadow 0.3s, transform 0.4s cubic-bezier(.25,.8,.25,1);
+      color: #f39c12;
+      text-shadow: 0 2px 8px rgba(243,156,18,0.2);
+      will-change: transform;
+    }
+    .counter:hover {
+      color: #d35400;
+      text-shadow: 0 6px 18px rgba(243,156,18,0.38);
+      transform: scale(1.08) rotateY(8deg);
+      cursor:pointer;
+    }
+    /* Testimonial cards */
+    .testimonial-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    /* Blog titles */
+    .card-title.text-danger { font-weight: 600; letter-spacing:0.01em; }
+    /* FAQ animated Accordion */
+    .faq-section {
+      background-color: #fafafa;
+      padding: 4rem 1rem;
+      font-family: 'Arial', sans-serif;
+    }
+    .faq-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #c0392b;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .faq-item {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 1.5rem;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: left;
+      padding: 1rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+      transition: color 0.25s;
+    }
+    .faq-item.open .faq-question {
+      color: #f39c12;
+    }
+    .toggle-icon {
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .faq-answer {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(.84,-0.07,.58,1.32), opacity 0.45s;
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding-bottom:0;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 240px;
+      opacity: 1;
+      padding-bottom:1rem;
+    }
+    /* Custom Footer */
+    .custom-footer {
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 3rem 1rem 1rem;
+      font-size: 0.95rem;
+    }
+    .custom-footer h5 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .custom-footer ul {
+      padding: 0;
+      list-style: none;
+    }
+    .custom-footer ul li {
+      margin-bottom: 0.5rem;
+    }
+    .custom-footer ul li a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+    }
+    .custom-footer ul li a:hover {
+      color: #f39c12;
+    }
+    .custom-footer .social-icons a {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .custom-footer .social-icons img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s;
+    }
+    .custom-footer .social-icons img:hover {
+      transform: scale(1.2) rotateZ(10deg);
+
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#"> <img src="logo.png" alt="Basti Ki Pathshala Logo" height="50"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQs</a></li>
+          <li class="nav-item"><a class="nav-link" href="volunteer.html">Volunteer</a></li>
+          <li class="nav-item"><a class="btn btn-warning ms-3" href="#donate">Donate</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Hero Section -->
+  <section id="home" class="hero d-flex align-items-center justify-content-center text-white text-center" data-animate>
+    <div class="overlay"></div>
+    <div class="container">
+      <h1 class="display-4">Empowering Education at the Grassroots</h1>
+      <p class="lead mt-3">Join us in our mission to break the barriers of education in underserved communities. With your support, we can provide quality education to children living in slum areas, empowering them with the knowledge and skills they need to build a brighter future. Together, let’s make a difference. Take action today and be a part of the change!</p>
+      <a href="volunteer.html" class="btn btn-warning btn-lg mt-4">Join Us</a>
+    </div>
+  </section>
+
+ <!-- ABOUT US - IMPROVED MODERN SECTION -->
+<section id="about" class="py-5" style="background:linear-gradient(90deg,#fff 70%,#f6f9fe 100%);" data-animate>
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <!-- Left: About Image -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="overflow-hidden rounded-4 shadow-sm about-img-holder" style="min-height:280px;background:#f2f3fa;">
+          <img src="aboutus.jpg" alt="Teaching at Basti Ki Pathshala" class="img-fluid w-100 h-100 object-fit-cover about-image" style="min-height:280px;">
+        </div>
+      </div>
+      <!-- Right: About Content -->
+      <div class="col-lg-6">
+        <div class="ps-lg-2 pe-lg-4">
+          <h4 class="fw-semibold" style="color:#13547a;margin-bottom:0.3rem;letter-spacing:.01em;">About Us</h4>
+          <h2 class="fw-bold" style="font-family:'Poppins',sans-serif;font-size:2.15rem;line-height:1.16;margin-bottom:1.2rem;">
+            <span style="background:linear-gradient(90deg,#ffe259,#ffa751);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Lighting the Path to Change</span> with Basti Ki Pathshala Foundation
+          </h2>
+          <p style="font-size:1.09rem;color:#2f3542;">
+            At Basti Ki Pathshala Foundation, we are more than just an organization – we are a movement, driven by the belief that education is the cornerstone of empowerment. Established under the Indian Societies Act of 1860, we stand as a beacon of hope in underserved communities, dedicated to breaking the chains of poverty through the transformative power of learning.
+          </p>
+          <p style="font-size:1.06rem;color:#394867;">
+            Join us in our quest to rewrite the narrative of education, one success story at a time. Together, let's build a world where every child has the opportunity to dream, to learn, and to soar. Welcome to Basti Ki Pathshala Foundation – where hope is our currency, and education is our legacy.
+          </p>
+          <a href="#" class="btn btn-outline-primary btn-lg mt-2 px-4 fw-semibold about-btn-animate">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Styles for About Us Enhanced Section -->
+<style>
+.about-img-holder {
+  box-shadow: 0 10px 28px rgba(160,68,255,0.08), 0 3px 12px rgba(44,62,80,0.09);
+  border-radius: 1.3rem !important;
+  transition: transform 0.34s cubic-bezier(.23,.36,.67,.99), box-shadow 0.2s;
+  overflow: hidden;
+  background:#f5f7fa;
+  min-height: 280px;
+}
+.about-img-holder:hover {
+  transform: scale(1.035) rotateZ(-1.7deg);
+  box-shadow: 0 20px 50px rgba(255, 226, 89, 0.10),0 8px 26px rgba(250, 112, 154, 0.13);
+}
+.about-image {
+  object-fit: cover;
+  min-height:280px;
+  transition: transform 0.33s cubic-bezier(.28,.8,.35,1.16);
+}
+.about-img-holder:hover .about-image {
+  transform: scale(1.045);
+}
+.about-btn-animate {
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 1.08rem;
+  padding: 0.55rem 2.4rem;
+  box-shadow: 0 2px 16px rgba(49,130,206,0.09);
+  transition: background 0.24s, box-shadow 0.23s, color 0.12s, transform 0.12s;
+}
+.about-btn-animate:hover {
+  background: #13547a;
+  color: #fff;
+  box-shadow: 0 10px 38px rgba(49,130,206, 0.18);
+  transform: translateY(-2px) scale(1.045);
+}
+@media (max-width: 992px) {
+  .ps-lg-2, .pe-lg-4 { padding:0 !important; }
+}
+</style>
+
+
+  <!-- WHY EDUCATION IS IMPORTANT - MODERN DESIGN -->
+<section id="programs" class="py-5 bg-light" data-animate>
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold" style="letter-spacing:.01em;">Why Education is Important</h2>
+      <div class="d-flex justify-content-center mb-3">
+        <span style="display:inline-block; width:70px; height:4px; background:linear-gradient(90deg,#30cfd0,#330867); border-radius:2px;"></span>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 text-center">
+        <div class="edu-card p-4 h-100 bg-white rounded-4 shadow-sm">
+          <div class="edu-icon mb-3">
+            <i class="fas fa-hand-holding-heart fa-2x" style="color:#30cfd0;"></i>
+          </div>
+          <h5 class="fw-semibold mb-3">Breaking Poverty</h5>
+          <p class="text-muted">Education offers underprivileged slum children a pathway out of poverty by providing them with the knowledge and skills necessary to secure better opportunities in the future. By empowering them with education, these children can break the intergenerational cycle of poverty and create a brighter future for themselves and their families.</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="edu-card p-4 h-100 bg-white rounded-4 shadow-sm">
+          <div class="edu-icon mb-3">
+            <i class="fas fa-rocket fa-2x" style="color:#a044ff;"></i>
+          </div>
+          <h5 class="fw-semibold mb-3">Empowerment</h5>
+          <p class="text-muted">Education empowers slum children to envision a life beyond their current circumstances. It instills in them a sense of self-worth and confidence, enabling them to dream big and pursue their aspirations. Through education, these children gain the tools to advocate for themselves, make informed decisions, and strive for a better quality of life.</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="edu-card p-4 h-100 bg-white rounded-4 shadow-sm">
+          <div class="edu-icon mb-3">
+            <i class="fas fa-sun fa-2x" style="color:#f7971e;"></i>
+          </div>
+          <h5 class="fw-semibold mb-3">Hope & Resilience</h5>
+          <p class="text-muted">Education offers slum children a sense of hope and resilience in the face of adversity. It equips them with the skills to overcome challenges and navigate the complexities of their environment. By investing in their education, we provide these children with a beacon of hope, showing them that a brighter future is possible, no matter where they come from.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add this to your CSS -->
+<style>
+  .edu-card {
+    transition: transform 0.32s cubic-bezier(.27,.55,.74,1.25), box-shadow 0.26s;
+    box-shadow: 0px 2px 12px rgba(44, 62, 80, 0.065), 0 1.5px 6px rgba(48,207,208,0.04);
+    border: none;
+  }
+  .edu-card:hover {
+    transform: translateY(-10px) scale(1.04) rotateZ(-2deg);
+    box-shadow: 0 12px 36px rgba(48,207,208, 0.095), 0 4px 18px rgba(160,68,255,0.07);
+    z-index:2;
+  }
+  .edu-icon i {
+    filter: drop-shadow(0 2px 2px #eaeaea);
+    background: linear-gradient(90deg,#30cfd0,#330867);
+    padding: .6rem 1.1rem;
+    border-radius:1.8rem;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 767px) {
+    .edu-card { margin-bottom: 1.5rem;}
+  }
+</style>
+
+<!-- Font Awesome CDN (if not already included) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+ <!-- JOIN OUR TEAM - MODERN ENHANCED DESIGN -->
+<section id="team" class="py-5" style="background:linear-gradient(90deg,#fff 70%,#f9fafd 100%);" data-animate>
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <!-- Left: Text Content -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="ps-lg-2 pe-lg-4">
+          <h2 class="fw-bold mb-3" style="letter-spacing:.01em;">Join Our Team</h2>
+          <div style="height:4px;width:64px;background:linear-gradient(90deg,#30cfd0,#330867);border-radius:2px;margin-bottom:1.5rem;"></div>
+          <p style="font-size:1.14rem;color:#444;">At Basti Ki Pathshala Foundation, we’re not just building a team; we’re assembling a force for change. As we continue our mission to break barriers and empower communities through education, we invite passionate individuals to join us in making a tangible difference in the lives of underserved children.</p>
+          <p style="font-size:1.08rem;color:#555;">Whether you’re a seasoned educator, a community organizer, or simply someone with a heart for social impact, there’s a place for you in our team. Together, we’ll collaborate, innovate, and inspire, working towards a future where every child has the opportunity to thrive.</p>
+          <p style="font-size:1.08rem;color:#555;">Join us in this rewarding journey of transformation. Together, let’s pave the way for brighter tomorrows and empower futures, one child at a time.</p>
+          <a href="volunteer.html" class="btn btn-warning btn-lg shadow team-btn-animate mt-2">Volunteer Now</a>
+        </div>
+      </div>
+      <!-- Right: Image Content -->
+      <div class="col-lg-6">
+        <div class="overflow-hidden rounded-4 shadow team-img-holder h-100" style="min-height:280px;background:#eee;">
+          <img src="team.jpg" alt="Team" class="img-fluid w-100 h-100 object-fit-cover team-hero-image" style="min-height:280px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Styles for the Team Section Enhancement -->
+<style>
+.team-img-holder {
+  box-shadow: 0 10px 28px rgba(48,207,208,0.09), 0 3px 12px rgba(44,62,80,0.09);
+  border-radius: 1.3rem !important;
+  transition: transform 0.36s cubic-bezier(.23,.36,.67,.99), box-shadow 0.34s;
+  overflow: hidden;
+  background:#f4f9fd;
+}
+.team-img-holder:hover {
+  transform: scale(1.03) rotateZ(-1.5deg);
+  box-shadow: 0 20px 46px rgba(48,207,208,0.14),0 8px 26px rgba(160,68,255,0.09);
+}
+.team-hero-image {
+  object-fit: cover;
+  transition: transform 0.35s cubic-bezier(.28,.8,.35,1.16) !important;
+}
+.team-img-holder:hover .team-hero-image {
+  transform: scale(1.06);
+}
+.team-btn-animate {
+  border-radius: 2rem;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 16px rgba(243, 156, 18, 0.09);
+  transition: background 0.24s, box-shadow 0.25s, transform 0.18s;
+}
+.team-btn-animate:hover {
+  background: #ffd76a;
+  color: #2c3e50;
+  box-shadow: 0 6px 30px rgba(243, 156, 18, 0.17);
+  transform: translateY(-2px) scale(1.035);
+}
+@media (max-width: 992px) {
+  .ps-lg-2, .pe-lg-4 { padding:0 !important; }
+}
+</style>
+
+
+  <!-- BLOGS SECTION -->
+
+<section id="blog" class="py-5 bg-light" data-animate>
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-uppercase mb-2" style="color:#d32f2f;letter-spacing:0.05em;">Blogs</h2>
+      <div class="d-flex justify-content-center mb-2">
+        <span style="display:inline-block; width:70px; height:4px; background:linear-gradient(90deg,#ffb347,#f44336); border-radius:2px;"></span>
+      </div>
+      <p class="lead text-muted" style="font-size:1.15rem; max-width:680px; margin:0 auto;">
+        The Basti Ki Pathshala blog brings to life how we are committed to child welfare, child protection, and empowerment.<br>
+        It provides a glimpse into the stories of children whose lives have been transformed and communities uplifted.
+      </p>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <!-- Blog 1 -->
+      <div class="col">
+        <div class="card blog-card h-100">
+          <img src="Why-Early-Childhood-Care-And-Education-Matters-1.webp" class="card-img-top rounded-top" alt="Blog 1">
+          <div class="card-body">
+            <h6 class="card-title text-danger">Why Early Childhood Care And Education Matters?</h6>
+            <p class="card-text">The average person simply may tend to underestimate the pace of brain development...</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <a href="#" class="btn btn-secondary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+      <!-- Blog 2 -->
+      <div class="col">
+        <div class="card blog-card h-100">
+          <img src="Empowering-Rural-Communities-with-Digital-Literacy-in-India-1.webp" class="card-img-top rounded-top" alt="Blog 2">
+          <div class="card-body">
+            <h6 class="card-title text-danger">Empowering Rural Communities With Digital Literacy In India</h6>
+            <p class="card-text">What is Digital Literacy and Why It Matters in Rural India. It's about connecting communities...</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <a href="#" class="btn btn-secondary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+      <!-- Blog 3 -->
+      <div class="col">
+        <div class="card blog-card h-100">
+          <img src="Why-is-Educated-Unemployment-a-Growing-Concern-in-India-1.webp" class="card-img-top rounded-top" alt="Blog 3">
+          <div class="card-body">
+            <h6 class="card-title text-danger">Why Is Educated Unemployment A Growing Concern In India?</h6>
+            <p class="card-text">India graduates more students than most countries, yet the reality of educated unemployment...</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <a href="#" class="btn btn-secondary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+      <!-- Blog 4 -->
+      <div class="col">
+        <div class="card blog-card h-100">
+          <img src="How-To-Promote-Educational-Equity-and-Bridge-Gaps-for-a-Fair-Future-1.webp" class="card-img-top rounded-top" alt="Blog 4">
+          <div class="card-body">
+            <h6 class="card-title text-danger">Why Donating To Basti Ki Pathshala Is An Investment In India's Future</h6>
+            <p class="card-text">Donations help create economic and social value that extends beyond immediate humanitarian impact...</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <a href="#" class="btn btn-secondary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #blog h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #d32f2f;
+  }
+  #blog .lead {
+    color: #5c5c5c;
+    font-weight: 400;
+    font-size: 1.15rem;
+  }
+  #blog .d-flex span {
+    background: linear-gradient(90deg,#ffb347,#f44336);
+    border-radius: 2px;
+  }
+  .blog-card {
+    box-shadow: 0 7px 24px rgba(44, 62, 80, 0.095), 0 1.5px 6px rgba(243,156,18,0.03);
+    transition: box-shadow 0.35s cubic-bezier(.23,.36,.67,.99), transform 0.3s;
+    border-radius: 1.1rem;
+    border: none;
+  }
+  .blog-card:hover {
+    box-shadow: 0 12px 40px rgba(243, 156, 18, 0.16), 0 2.5px 16px rgba(44, 62, 80, 0.18);
+    transform: translateY(-6px) scale(1.03);
+    z-index: 2;
+  }
+</style>
+
+
+<!-- Intern Insights Section -->
+<section id="insights" class="py-5 bg-light" data-animate>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="letter-spacing:0.01em;">Intern Insights</h2>
+      <div class="d-flex justify-content-center mb-2">
+        <span style="display:inline-block; width:70px; height:4px; background:linear-gradient(90deg,#f9ca24,#f39c12); border-radius:2px;">
+        </span>
+      </div>
+      <p class="lead text-muted" style="font-size:1.2rem;max-width:480px; margin:0 auto;">
+        Hear from Our Valued Team Members
+      </p>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4">
+        <div class="card p-4 shadow h-100 testimonial-card border-0 rounded-4 text-center">
+          <img src="customer01.jpg" alt="Shreya Gupta" class="rounded-circle shadow mb-3" width="70" height="70" style="object-fit:cover; border:3px solid #f9ca24;">
+          <p class="fst-italic mt-2">"Joining Basti Ki Pathshala Foundation as an intern has been an enriching experience... I'm grateful for the chance to contribute to such a meaningful cause."</p>
+          <h6 class="text-warning fw-bold mb-0">Shreya Gupta</h6>
+          <div class="small text-muted">Summer Intern</div>
+        </div>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="col-md-4">
+        <div class="card p-4 shadow h-100 testimonial-card border-0 rounded-4 text-center">
+          <img src="customer02.jpg" alt="Pooja Arora" class="rounded-circle shadow mb-3" width="70" height="70" style="object-fit:cover; border:3px solid #f9ca24;">
+          <p class="fst-italic mt-2">"My time as an intern... every moment has been filled with learning and growth. I'm proud to be a part of an organization that is making a real difference."</p>
+          <h6 class="text-warning fw-bold mb-0">Pooja Arora</h6>
+          <div class="small text-muted">Outreach Intern</div>
+        </div>
+      </div>
+      <!-- Testimonial 3 -->
+      <div class="col-md-4">
+        <div class="card p-4 shadow h-100 testimonial-card border-0 rounded-4 text-center">
+          <img src="customer01.jpg" alt="Kanishka Rajput" class="rounded-circle shadow mb-3" width="70" height="70" style="object-fit:cover; border:3px solid #f9ca24;">
+          <p class="fst-italic mt-2">"As an intern at Basti Ki Pathshala Foundation, I've been truly inspired... I'm grateful for the opportunity to contribute to such meaningful work."</p>
+          <h6 class="text-warning fw-bold mb-0">Kanishka Rajput</h6>
+          <div class="small text-muted">Community Education Intern</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .testimonial-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+  box-shadow: 0px 2px 16px rgba(243, 156, 18, 0.040),0 1.5px 3px rgba(0,0,0,0.08);
+  will-change: transform;
+}
+.testimonial-card:hover {
+  transform: translateY(-12px) scale(1.04) rotate3d(0.8,0.2,0,5deg);
+  box-shadow: 0px 20px 54px rgba(243, 156, 18, 0.10),0 2px 5px rgba(0,0,0,0.10);
+  z-index: 2;
+}
+.testimonial-card .rounded-circle {
+  transition: transform 0.35s, box-shadow 0.3s;
+}
+.testimonial-card .rounded-circle:hover {
+  transform: scale(1.10) rotateZ(-3deg);
+  box-shadow: 0 8px 30px rgba(25, 25, 51, 0.11);
+}
+
+  </style>
+</section>
+
+
+  <!-- WHAT DONOR SAYS - MODERNIZED SECTION -->
+<section class="py-5 bg-light" id="donor-section" data-animate>
+  <div class="container">
+    <!-- Modern Title & Description -->
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-uppercase mb-2" style="color:#d32f2f;letter-spacing:0.06em;">What Donor Says</h2>
+      <div class="d-flex justify-content-center mb-2">
+        <span style="display:inline-block; width:70px; height:4px; background:linear-gradient(90deg,#ff5858,#ffc371); border-radius:2px;"></span>
+      </div>
+      <p class="lead text-muted" style="font-size:1.06rem; max-width:700px; margin:0 auto 2.3rem;">
+        Donors across the country share our commitment to providing every child with a safe and nurturing environment. Here, you can read inspiring words, written by people like you, about how they value investing in underprivileged children and showing them a better and brighter future. Through their words, you will discover that every rupee and every person matters in our common journey towards a better tomorrow.
+      </p>
+    </div>
+    <!-- Testimonials -->
+    <div class="row justify-content-center">
+      <!-- Testimonial Card 1 -->
+      <div class="col-md-5 m-3">
+        <div class="card shadow blog-donor-card border-0 p-4 rounded-4 h-100">
+          <div class="text-center">
+            <img src="customer01.jpg" class="rounded-circle shadow mb-3" alt="Donor 1" width="80">
+          </div>
+          <div class="text-center text-warning mb-3" style="font-size:1.15rem; letter-spacing:0.1em;">
+            ★★★★★
+          </div>
+          <blockquote class="text-center text-muted">
+            <i class="fas fa-quote-left fa-lg mb-2" style="color:#ff9371;"></i>
+            <p class="mt-2 fst-italic mb-2" style="font-size:1.07rem;">
+              I truly appreciate Basti Ki Pathshala for the incredible work they do in standing up for those in need.
+              It’s heartening to see how small acts of kindness can bring real change.
+              Thank you to the entire team for your dedication to this beautiful cause.
+            </p>
+            <footer class="blockquote-footer mt-3">Jack<br><cite title="Source Title">Germany</cite></footer>
+            <i class="fas fa-quote-right fa-lg float-end" style="color:#ff9371;"></i>
+          </blockquote>
+        </div>
+      </div>
+      <!-- Testimonial Card 2 -->
+      <div class="col-md-5 m-3">
+        <div class="card shadow blog-donor-card border-0 p-4 rounded-4 h-100">
+          <div class="text-center">
+            <img src="customer02.jpg" class="rounded-circle shadow mb-3" alt="Donor 2" width="80">
+          </div>
+          <div class="text-center text-warning mb-3" style="font-size:1.15rem; letter-spacing:0.1em;">
+            ★★★★★
+          </div>
+          <blockquote class="text-center text-muted">
+            <i class="fas fa-quote-left fa-lg mb-2" style="color:#ff9371;"></i>
+            <p class="mt-2 fst-italic mb-2" style="font-size:1.07rem;">
+              It brings me immense happiness and fulfillment to support this organization.
+              I hope more people come forward to support this cause.
+              Wishing continued strength and success in the wonderful work you do.
+            </p>
+            <footer class="blockquote-footer mt-3">Albert<br><cite title="Source Title">New York</cite></footer>
+            <i class="fas fa-quote-right fa-lg float-end" style="color:#ff9371;"></i>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #donor-section h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #d32f2f;
+  }
+  #donor-section .lead {
+    color: #656565;
+    font-weight: 400;
+    font-size: 1.08rem;
+  }
+  #donor-section .d-flex span {
+    background: linear-gradient(90deg,#ff5858,#ffc371);
+    border-radius: 2px;
+  }
+  .blog-donor-card {
+    box-shadow: 0 7px 24px rgba(255, 157, 85, 0.081), 0 1.5px 5px rgba(255,99,71,0.04);
+    transition: box-shadow 0.36s cubic-bezier(.23,.36,.67,.99), transform 0.33s;
+    border-radius: 1.1rem;
+    border: none;
+    background:#fff;
+  }
+  .blog-donor-card:hover {
+    box-shadow: 0 14px 42px rgba(243, 156, 18, 0.13), 0 2.5px 12px rgba(255,88,88,0.14);
+    transform: translateY(-8px) scale(1.03);
+    z-index: 2;
+  }
+</style>
+
+  <!-- Impact Counters -->
+  <section id="impact" class="py-5 text-white" style="background: url('herobackground.jpg') center/cover;" data-animate>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="counter">31,245</div>
+          <p>Lives Changed</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter">28,976</div>
+          <p>Meals Served</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter">19,854</div>
+          <p>Interns</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter">10,989</div>
+          <p>Supporters</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq" data-animate>
+    <div class="container">
+      <h2 class="faq-title">FAQs</h2>
+      <div class="faq-item">
+        <button class="faq-question">Are there any tax benefits involved while donating to Basti Ki Pathshala?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>Yes, all donations are eligible for 50% tax exemption under Section 80G of the Income Tax Act, 1961. You will receive a certificate for your records.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What’s the process to avail tax exemption certificate?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>After donating, you’ll receive an email with your donation receipt and tax exemption certificate by May 31 of the financial year.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How can I donate online?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>Visit our Donate page, select an amount, choose a payment method (UPI, Netbanking, Card), and confirm your donation. A confirmation email will be sent instantly.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is there any advantage to donating online?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>Yes, it’s faster, safer, and you receive instant confirmation and digital receipts.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is it safe to give my credit card details online?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>Absolutely. We use secure SSL encryption and work with trusted payment gateways to protect your data.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How do I continue or cancel my recurring donation?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>Just drop us an email at <a href="mailto:support@bkp.org">support@bkp.org</a> or call +91-1234567890.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is it complicated to make a donation online?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>No, it’s a simple 3-step process: Choose amount → Fill details → Make payment. Done!</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How safe is my personal information with Basti Ki Pathshala?<span class="toggle-icon">+</span></button>
+        <div class="faq-answer">
+          <p>We are committed to your privacy and follow data protection protocols. Your data is never shared or sold.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- MODERN FOOTER SECTION WITH CUSTOM BACKGROUND COLOR -->
+<footer class="project-footer mt-0 pt-0">
+  <div class="footer-main">
+    <div class="container py-5">
+      <div class="row text-center text-md-start align-items-center">
+        <!-- About -->
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="fw-bold mb-2" style="color:#1f285a;">Basti Ki Pathshala Foundation</h5>
+          <p class="footer-about">
+            Empowering underserved communities through free education, support, and love.<br>
+            Together, we can create a brighter future.
+          </p>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h6 class="fw-bold mb-3" style="color:#2f3e73;">Quick Links</h6>
+          <ul class="footer-links px-0">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#certificate">Certificate</a></li>
+            <li><a href="#volunteer">Volunteer</a></li>
+            <li><a href="#donate">Donate</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3" style="color:#2f3e73;">Contact Us</h6>
+          <p class="mb-1">Email: <a href="mailto:info@bastikipathshala.org" class="footer-contact-link">info@bastikipathshala.org</a></p>
+          <p class="mb-2">Phone: <a href="tel:+911234567890" class="footer-contact-link">+91 12345 67890</a></p>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-icon-link" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="footer-icon-link" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="footer-icon-link" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="mb-0" style="border-top:1.5px solid #ececec;">
+    <div class="footer-bottom text-center py-3">
+      <small class="text-muted" style="letter-spacing:.01em;">
+        © 2025 Basti Ki Pathshala Foundation. All Rights Reserved.
+      </small>
+    </div>
+  </div>
+</footer>
+
+<!-- Font Awesome for social icons (INCLUDE if not already loaded) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+.project-footer {
+  background: #f3efe8; /* Custom solid background color (very light warm beige) */
+  border-top: 3.5px solid #ffe5b4;
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  letter-spacing: .01em;
+}
+.footer-main {
+  border-radius: 0 0 13px 13px;
+  box-shadow: 0 4px 20px 2px rgba(180, 180, 210, 0.05);
+}
+.footer-about {
+  font-size: 1.04rem;
+  line-height: 1.6;
+  color: #3f3f3f;
+}
+.footer-links {
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.footer-links li {
+  margin-bottom: .35rem;
+}
+.footer-links a {
+  color: #2f3e73;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.04rem;
+  transition: color .26s;
+}
+.footer-links a:hover {
+  color: #ffb347;
+  text-decoration: underline;
+}
+.footer-contact-link {
+  color: #2f3e73;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .24s;
+}
+.footer-contact-link:hover {
+  color: #f7971e;
+  text-decoration: underline;
+}
+.footer-social-icons {
+  margin-top: 0.7rem;
+}
+.footer-icon-link {
+  display: inline-block;
+  margin-right: 13px;
+  font-size: 1.5rem;
+  color: #2f3e73;
+  background: #fff2df;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  transition: background .24s, color .23s, transform .2s;
+  box-shadow: 0 2px 12px rgba(183,125,49,0.04);
+}
+.footer-icon-link:hover {
+  color: #fff;
+  background: linear-gradient(90deg,#ffb347,#f7971e);
+  transform: translateY(-3px) scale(1.1);
+}
+.footer-bottom {
+  background: transparent;
+}
+@media (max-width: 767px) {
+  .footer-main .row > div {
+    margin-bottom: 2.2rem;
+  }
+}
+</style>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- FAQ Accordion Animation -->
+  <script>
+    document.querySelectorAll(".faq-question").forEach(button => {
+      button.addEventListener("click", () => {
+        const item = button.parentElement;
+        item.classList.toggle("open");
+        const icon = button.querySelector(".toggle-icon");
+        icon.textContent = item.classList.contains("open") ? "−" : "+";
+      });
+    });
+  </script>
+  <!-- Section Animate on Scroll -->
+  <script>
+  document.addEventListener("scroll", function() {
+    document.querySelectorAll("[data-animate]").forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 80) el.classList.add("animated");
+    });
+  });
+  
+  </script>
+  <!-- Impact Counter Animation -->
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.counter').forEach(counter => {
+          const target = +counter.textContent.replace(/,/g,"");
+          counter.textContent = '0';
+          let count = 0;
+          const inc = Math.ceil(target / 70);
+          function updateCount() {
+              count += inc;
+              if(count < target) {
+                  counter.textContent = count.toLocaleString();
+                  requestAnimationFrame(updateCount);
+              } else {
+                  counter.textContent = target.toLocaleString();
+              }
+          }
+          updateCount();
+      });
+  });
+  </script>
+</body>
+</html>
