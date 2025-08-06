@@ -29,7 +29,7 @@ It’s a great base for nonprofits and social initiatives aiming for an accessib
 ---
 
 ## Demo 
-> [Live Site on Netlify]([https://b-k-pathshala.netlify.app/])
+ [Live Site on Netlify](https://b-k-pathshala.netlify.app/)
 
 ---
 
@@ -62,8 +62,6 @@ basti-ki-pathshala/
 ├── herobackground.jpg
 ├── customer01.jpg
 ├── customer02.jpg
-├── css/
-│   └── style.css
 ├── README.md
    
 ```
